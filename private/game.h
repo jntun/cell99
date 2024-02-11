@@ -43,7 +43,6 @@ static struct cell99 init()
 
             .ecs     = ecs_init(),
     };
-    ecs_os_get_time(&game.start);
 
     return game;
 }
@@ -73,6 +72,8 @@ static struct cell99 start(struct cell99 game)
     cell_build_world(game.ecs);
     game.passenger = cell99_passenger(game.ecs);
     game.running = true;
+    ecs_os_get_time(&game.start);
+
     return game;
 }
 
