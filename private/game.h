@@ -23,7 +23,7 @@ struct init_flags {
 
 /*!
  * @struct
- * Highest level state of the currently executing binary
+ * The global scope of an engine's execution of a game's main loop
  */
 typedef struct cell99_game_t {
     bool       running;
