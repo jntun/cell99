@@ -9,22 +9,23 @@
 #include <flecs.h>
 
 #include "util.h"
-#include "cell.h"
 #include "client.h"
+#include "component.h"
 
 static uint32_t const MAX_CLIENTS = 100 - 1;
-static uint64_t const EPOCHS      = 100 - 1;
+static uint64_t const EPOCHS      = 1000 - 1;
 
 struct init_flags {
     unsigned int cold  : 1;
     unsigned int pause : 1;
+    unsigned int epoch : 1;
 };
 
 /*!
  * @struct
  * Highest level state of the currently executing binary
  */
-struct cell99 {
+typedef struct cell99_game_t {
     bool       running;
     uint64_t   epoch;
     ecs_time_t start;
@@ -32,14 +33,18 @@ struct cell99 {
 
     cell99_passenger_t passenger;
     ecs_world_t *ecs;
-};
+} cell99_game_t;
 
-static struct cell99 init()
+static struct cell99_game_t init()
 {
-    struct cell99 game = {
+    struct cell99_game_t const game = {
             .running = false,
             .epoch   = 0,
-            .init    = {.cold = 1, .pause = 0},
+            .init    = {
+                .cold = 1,
+                .pause = 0,
+                .epoch = true,
+            },
 
             .ecs     = ecs_init(),
     };
@@ -47,7 +52,7 @@ static struct cell99 init()
     return game;
 }
 
-static struct cell99 run(struct cell99 game)
+static struct cell99_game_t run(struct cell99_game_t game)
 {
     if (game.init.cold) {
         game.init.cold = 0;
@@ -55,7 +60,8 @@ static struct cell99 run(struct cell99 game)
 
     ecs_time_t start;
     ecs_os_get_time(&start);
-    if (game.epoch == EPOCHS)
+
+    if (game.init.epoch && game.epoch == EPOCHS)
         game.running = false;
 
     game.epoch++;
@@ -67,17 +73,19 @@ static struct cell99 run(struct cell99 game)
     return game;
 }
 
-static struct cell99 start(struct cell99 game)
+static struct cell99_game_t start(struct cell99_game_t game)
 {
     cell_build_world(game.ecs);
     game.passenger = cell99_passenger(game.ecs);
     game.running = true;
     ecs_os_get_time(&game.start);
 
+
+
     return game;
 }
 
-static void close(struct cell99 game)
+static void close(struct cell99_game_t game)
 {
     ecs_fini(game.ecs);
 }
