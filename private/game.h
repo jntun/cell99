@@ -26,7 +26,7 @@ struct init_flags {
  * The global scope of an engine's execution of a game's main loop
  */
 typedef struct cell99_game_t {
-    bool       running;
+    uint8_t running;
     uint64_t   epoch;
     ecs_time_t start;
     struct init_flags init;
@@ -77,10 +77,8 @@ static struct cell99_game_t start(struct cell99_game_t game)
 {
     cell_build_world(game.ecs);
     game.passenger = cell99_passenger(game.ecs);
-    game.running = true;
+    game.running = 1;
     ecs_os_get_time(&game.start);
-
-
 
     return game;
 }
