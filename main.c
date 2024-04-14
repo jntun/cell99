@@ -1,7 +1,5 @@
-#include <stdlib.h>
-#include <flecs.h>
+#include <SDL.h>
 
-#include "render.h"
 #include "util.h"
 #include "game.h"
 
@@ -9,7 +7,6 @@ struct engine {
     uint8_t running;
 
     cell99_game_t game;
-    struct renderer renderer;
 };
 
 void input(struct engine *engine)
@@ -26,14 +23,12 @@ void input(struct engine *engine)
 int main()
 {
     printf("Hello, " KTXT(KRED, "cell99") "!\n");
-    struct engine cell99 = {1, init(), renderer_default()};
+    struct engine cell99 = {1, init()};
 
     cell99.game = start(cell99.game);
     do {
         if (cell99.game.running) cell99.game = run(cell99.game);
 
-        // The cel99::renderer calling render() requires ownership of the game it will be rendering.
-        cell99.game = render(&cell99.renderer, cell99.game);
         input(&cell99);
     } while (cell99.running);
 

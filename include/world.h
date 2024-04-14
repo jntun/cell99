@@ -1,13 +1,15 @@
 //
-// Created by Justin Tunheim on 2/3/24.
+// Created by Justin Tunheim on 3/22/24.
 //
 
-#ifndef CELL99_CELL_H
-#define CELL99_CELL_H
+#ifndef CELL99_WORLD_H
+#define CELL99_WORLD_H
 
-#include "flecs.h"
+#include <flecs.h>
 
-#include "pos.h"
+typedef struct pos_t {
+    uint64_t x, y;
+} pos_t;
 
 #define CELL_X 10
 #define CELL_Y 10
@@ -24,4 +26,4 @@ typedef enum cell_t {
 
 void cell_build_world(ecs_world_t *ecs);
 
-#endif //CELL99_CELL_H
+#endif //CELL99_WORLD_H

@@ -2,7 +2,7 @@
 // Created by Justin Tunheim on 2/3/24.
 //
 
-#include "cell.h"
+#include "world.h"
 
 void cell_build_world(ecs_world_t *ecs)
 {
@@ -16,8 +16,9 @@ void cell_build_world(ecs_world_t *ecs)
         ecs_add(ecs, cell, pos_t);
 
         cell_t type = CELL_TYPE_DEFAULT;
-        if (i == CELL_COUNT / 2)
-        type = CELL_TYPE_SPAWN;
+        if (i == CELL_COUNT / 2) {
+            type = CELL_TYPE_SPAWN;
+        }
 
         ecs_set(ecs, cell, pos_t, {.x = i - (i / CELL_Y) * 10, .y = (i / CELL_Y)});
         ecs_set(ecs, cell, cell_t, { type });

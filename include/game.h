@@ -8,9 +8,9 @@
 #include <stdlib.h>
 #include <flecs.h>
 
-#include "util.h"
+#include "world.h"
 #include "client.h"
-#include "component.h"
+#include "util.h"
 
 static uint32_t const MAX_CLIENTS = 100 - 1;
 static uint64_t const EPOCHS      = 1000 - 1;
