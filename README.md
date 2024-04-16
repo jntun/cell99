@@ -24,4 +24,5 @@ The header **_must_** match the version of the dynamic library (flecs.dylib, fle
 | client    | input, networking, ui, etc |
 | world     | position, cell             | 
 | falia     | renderer                   |
+| gk        | generic kit                |
 ------
