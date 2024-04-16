@@ -18,6 +18,8 @@ message("sdl2 = ${sdl2}")
 add_executable(cell99
         main.c
 
+        gk/array.c
+
         world/cell.c
         client/client.c
 )
