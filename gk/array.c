@@ -9,15 +9,6 @@
 
 void array_push(array_t *a, void *item)
 {
-    if (sizeof(*item) != a->size) {
-        fprintf(stderr, "%s@%d: Type confusion:\n\tsizeof(item)=%zu does not match array->size=%zu.\n",
-                __FUNCTION__,
-                __LINE__,
-                sizeof(*item),
-                a->size
-        );
-        return;
-    }
     if (a->count == a->capacity) {
 array_grow(a);
     }
