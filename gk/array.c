@@ -18,7 +18,8 @@ array_grow(a);
     return a->count++;
 }
 
-array_t array_init(size_t size, size_t capacity)
+array_t
+array_init(size_t size, size_t capacity)
 {
     array_t a = {
             .size = size,
@@ -30,7 +31,8 @@ array_t array_init(size_t size, size_t capacity)
     return a;
 }
 
-void array_grow(array_t *a)
+void
+array_grow(array_t *a)
 {
     size_t new_length = a->capacity * 2;
     char *new_buf = malloc(a->size * new_length);
@@ -40,7 +42,8 @@ void array_grow(array_t *a)
     a->buff = new_buf;
 }
 
-void array_free(array_t *a)
+void
+array_free(array_t *a)
 {
     a->size = 0;
     a->count = 0;
