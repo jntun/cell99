@@ -7,14 +7,15 @@
 
 #include "array.h"
 
-void array_push(array_t *a, void *item)
+size_t
+array_push(array_t *a, void *item)
 {
     if (a->count == a->capacity) {
 array_grow(a);
     }
     void *insert = a->buff + (a->count * a->size);
     memcpy(insert, item, a->size);
-    a->count++;
+    return a->count++;
 }
 
 array_t array_init(size_t size, size_t capacity)

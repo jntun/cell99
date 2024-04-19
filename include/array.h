@@ -16,7 +16,7 @@ typedef struct _c99_array {
     void  *buff;
 } array_t;
 
-void             array_push(array_t *a, void *item);
+size_t           array_push(array_t *a, void *item);
 array_t          array_init(size_t size, size_t capacity);
 void             array_grow(array_t *a);
 void             array_free(array_t *a);
