@@ -7,7 +7,7 @@
 
 #include "array.h"
 
-size_t
+asize_t
 array_push(array_t *a, void *item)
 {
     if (a->count == a->capacity) {
@@ -19,7 +19,7 @@ array_grow(a);
 }
 
 array_t
-array_init(size_t size, size_t capacity)
+array_init(asize_t size, asize_t capacity)
 {
     array_t a = {
             .size = size,
@@ -34,8 +34,10 @@ array_init(size_t size, size_t capacity)
 void
 array_grow(array_t *a)
 {
-    size_t new_length = a->capacity * 2;
-    char *new_buf = malloc(a->size * new_length);
+    asize_t new_length = a->capacity * 2;
+    // FIXME: (size_t)a->size is potentially dangerous here for allocating.
+    //        Instead it should probably wrapped by some function like size_t get_alloc_size(asize_t).
+    char *new_buf = malloc((size_t)a->size * new_length);
     memcpy(new_buf, a->buff, (a->size * a->capacity));
     a->capacity = new_length;
     free(a->buff);
