@@ -21,6 +21,8 @@ add_executable(cell99
         gk/vec3.c
         gk/array.c
 
+        falia/wavefront.c
+
         world/cell.c
         client/client.c
 )
